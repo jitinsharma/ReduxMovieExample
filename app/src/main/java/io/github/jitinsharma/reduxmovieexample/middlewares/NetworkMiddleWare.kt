@@ -35,7 +35,7 @@ private fun callTopRatedMovies(dispatchFunction: DispatchFunction) {
     val apiService = ApiClient.client?.create(ApiInterface::class.java)
     val call = apiService?.discoverMovies(API_KEY)
 
-    call?.enqueue(object : Callback<MovieResponse>{
+    call?.enqueue(object : Callback<MovieResponse> {
         override fun onFailure(call: Call<MovieResponse>?, t: Throwable?) {
             Timber.e(t)
         }

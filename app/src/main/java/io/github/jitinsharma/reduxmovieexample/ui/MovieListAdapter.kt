@@ -13,7 +13,7 @@ import io.github.jitinsharma.reduxmovieexample.models.MovieObject
  * Created by jsharma on 15/01/18.
  */
 class MovieListAdapter(private val movieObjects: List<MovieObject>,
-                       private val listener: (clickType: String) -> Unit):
+                       private val listener: (clickType: String, movieObject: MovieObject) -> Unit) :
         RecyclerView.Adapter<MovieListAdapter.MovieItemHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MovieItemHolder =
@@ -26,23 +26,23 @@ class MovieListAdapter(private val movieObjects: List<MovieObject>,
             movieRating.text = current.voteAverage.toString()
             movieItemImage.loadImage(getImageUrl(current.posterPath.toString()))
             movieItemImage.setOnClickListener {
-                listener.invoke(imageClicked)
+                listener.invoke(imageClicked, current)
             }
             addToFavorites.setOnClickListener {
-                listener.invoke(favoritesClicked)
+                listener.invoke(favoritesClicked, current)
             }
         }
     }
 
-    private fun getImageUrl(posterPath: String) : String = imageUrlPrefix + posterPath
+    private fun getImageUrl(posterPath: String): String = imageUrlPrefix + posterPath
 
-    override fun getItemCount(): Int  = movieObjects.size
+    override fun getItemCount(): Int = movieObjects.size
 
     inner class MovieItemHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var movieRating : TextView
-        lateinit var addToFavorites : ImageView
-        lateinit var movieItemImage : ImageView
+        lateinit var movieRating: TextView
+        lateinit var addToFavorites: ImageView
+        lateinit var movieItemImage: ImageView
 
         init {
             itemView?.apply {

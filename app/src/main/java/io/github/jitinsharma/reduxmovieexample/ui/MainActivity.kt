@@ -1,30 +1,29 @@
 package io.github.jitinsharma.reduxmovieexample.ui
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
+import com.roughike.bottombar.OnTabSelectListener
 import io.github.jitinsharma.reduxmovieexample.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.navigation_list -> {
-                return true
+class MainActivity : AppCompatActivity(), OnTabSelectListener {
+
+    override fun onTabSelected(tabId: Int) {
+        when(tabId) {
+            R.id.tab_list -> {
+
             }
-            R.id.navigation_favorites -> {
-                return true
+            R.id.tab_favorite -> {
+
             }
         }
-        return false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        navigation.setOnNavigationItemSelectedListener(this)
+        bottomBar.setOnTabSelectListener(this)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, MovieListFragment())
                 .commit()

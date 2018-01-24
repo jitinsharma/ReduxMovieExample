@@ -17,7 +17,7 @@ interface ApiInterface {
     fun getTopRatedMovies(@Query("api_key") apiKey: String): Call<MovieResponse>
 
     @GET("discover/movie?sort_by=popularity.desc")
-    fun discoverMovies(@Query("api_key") apiKey: String) : Call<MovieResponse>
+    fun discoverMovies(@Query("api_key") apiKey: String): Call<MovieResponse>
 
     @GET("movie/{id}")
     fun getMovieDetails(@Path("id") id: Int, @Query("api_key") apiKey: String): Call<MovieResponse>

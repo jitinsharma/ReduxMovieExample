@@ -1,0 +1,10 @@
+<tabs>
+    <tab
+        id="@+id/tab_list"
+        icon="@drawable/ic_home_black_24dp"
+        title="Movies" />
+    <tab
+        id="@+id/tab_favorite"
+        icon="@drawable/ic_dashboard_black_24dp"
+        title="Favorites" />
+</tabs>

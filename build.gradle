@@ -1,17 +1,21 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.60'
+    ext.kotlin_version = '1.2.10'
+    ext.serialization_version = '0.4'
     repositories {
         google()
         jcenter()
         maven {
             url 'https://rekotlin.s3-ap-southeast-1.amazonaws.com/snapshots'
         }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -25,6 +29,7 @@ allprojects {
         maven {
             url 'https://rekotlin.s3-ap-southeast-1.amazonaws.com/snapshots'
         }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
     }
 }
 
