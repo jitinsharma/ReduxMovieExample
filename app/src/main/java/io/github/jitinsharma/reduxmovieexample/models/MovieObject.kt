@@ -62,5 +62,8 @@ data class MovieObject(
 
         @ColumnInfo(name = "vote_count")
         @SerializedName("vote_count")
-        var voteCount: Long? = null
+        var voteCount: Long? = null,
+
+        @Ignore
+        var isFavorite: Boolean = false
 )

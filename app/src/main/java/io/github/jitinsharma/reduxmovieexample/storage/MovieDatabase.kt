@@ -8,7 +8,7 @@ import io.github.jitinsharma.reduxmovieexample.models.MovieObject
  * Created by jsharma on 20/01/18.
  */
 
-@Database(entities = arrayOf(MovieObject::class), version = 1)
+@Database(entities = [(MovieObject::class)], version = 1)
 abstract class MovieDatabase : RoomDatabase() {
-    abstract fun movieDao() : MovieDao
+    abstract fun movieDao(): MovieDao
 }

@@ -1,13 +1,20 @@
 package io.github.jitinsharma.reduxmovieexample.ui
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import io.github.jitinsharma.reduxmovieexample.*
+import io.github.jitinsharma.reduxmovieexample.R
+import io.github.jitinsharma.reduxmovieexample.actions.addMovieToFavorites
+import io.github.jitinsharma.reduxmovieexample.actions.removeMovieFromFavorites
+import io.github.jitinsharma.reduxmovieexample.helpers.imageClicked
+import io.github.jitinsharma.reduxmovieexample.helpers.imageUrlPrefix
+import io.github.jitinsharma.reduxmovieexample.helpers.loadImage
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
+import io.github.jitinsharma.reduxmovieexample.store
 
 /**
  * Created by jsharma on 15/01/18.
@@ -25,11 +32,16 @@ class MovieListAdapter(private val movieObjects: List<MovieObject>,
         holder?.apply {
             movieRating.text = current.voteAverage.toString()
             movieItemImage.loadImage(getImageUrl(current.posterPath.toString()))
-            movieItemImage.setOnClickListener {
-                listener.invoke(imageClicked, current)
-            }
-            addToFavorites.setOnClickListener {
-                listener.invoke(favoritesClicked, current)
+            if (current.isFavorite) {
+                addToFavorites.setImageDrawable(
+                        ContextCompat.getDrawable(addToFavorites.context,
+                                R.drawable.ic_favorite_red_24dp)
+                )
+            } else {
+                addToFavorites.setImageDrawable(
+                        ContextCompat.getDrawable(addToFavorites.context,
+                                R.drawable.ic_favorite_border_black_24dp)
+                )
             }
         }
     }
@@ -49,6 +61,25 @@ class MovieListAdapter(private val movieObjects: List<MovieObject>,
                 movieRating = findViewById(R.id.movieRating)
                 addToFavorites = findViewById(R.id.addToFavorites)
                 movieItemImage = findViewById(R.id.movieItemImage)
+                addToFavorites.setOnClickListener {
+                    movieObjects[adapterPosition].apply {
+                        handleFavoriteClick()
+                        onBindViewHolder(this@MovieItemHolder, adapterPosition)
+                    }
+                }
+                movieItemImage.setOnClickListener {
+                    listener.invoke(imageClicked, movieObjects[adapterPosition])
+                }
+            }
+        }
+
+        private fun MovieObject.handleFavoriteClick() {
+            if (!isFavorite) {
+                isFavorite = true
+                store.dispatch(addMovieToFavorites(this))
+            } else {
+                isFavorite = false
+                store.dispatch(removeMovieFromFavorites(this))
             }
         }
     }

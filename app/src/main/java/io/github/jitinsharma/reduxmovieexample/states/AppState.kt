@@ -7,5 +7,6 @@ import tw.geothings.rekotlin.StateType
  */
 
 data class AppState(
-        var movieListState: MovieListState? = null
+        var movieListState: MovieListState? = null,
+        var favoriteCounterState: FavoriteCounterState? = null
 ) : StateType

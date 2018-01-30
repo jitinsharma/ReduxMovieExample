@@ -8,4 +8,6 @@ import tw.geothings.rekotlin.Action
  */
 
 fun appReducer(action: Action, appState: AppState?): AppState =
-        AppState(movieListState = movieListReducer(action, appState?.movieListState))
+        AppState(
+                movieListState = movieListReducer(action, appState?.movieListState),
+                favoriteCounterState = favoriteCounterReducer(action, appState?.favoriteCounterState))

@@ -1,8 +1,8 @@
 package io.github.jitinsharma.reduxmovieexample.middlewares
 
-import io.github.jitinsharma.reduxmovieexample.API_KEY
-import io.github.jitinsharma.reduxmovieexample.actions.displayMovies
+import io.github.jitinsharma.reduxmovieexample.actions.initializeMovieList
 import io.github.jitinsharma.reduxmovieexample.actions.loadTopRatedMovies
+import io.github.jitinsharma.reduxmovieexample.helpers.API_KEY
 import io.github.jitinsharma.reduxmovieexample.models.MovieResponse
 import io.github.jitinsharma.reduxmovieexample.network.ApiClient
 import io.github.jitinsharma.reduxmovieexample.network.ApiInterface
@@ -43,7 +43,7 @@ private fun callTopRatedMovies(dispatchFunction: DispatchFunction) {
         override fun onResponse(call: Call<MovieResponse>?, response: Response<MovieResponse>?) {
             val movieObjects = response?.body()?.results
             movieObjects?.let {
-                dispatchFunction(displayMovies(it))
+                dispatchFunction(initializeMovieList(it))
             }
         }
     })

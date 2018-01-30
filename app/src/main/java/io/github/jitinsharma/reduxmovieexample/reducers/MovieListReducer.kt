@@ -9,13 +9,11 @@ import tw.geothings.rekotlin.Action
  */
 
 fun movieListReducer(action: Action, movieListState: MovieListState?): MovieListState {
-    return with(movieListState) {
-        val state = this ?: MovieListState()
-        when (action) {
-            is displayMovies -> {
-                state.copy(movieObjects = action.movieObjects)
-            }
-            else -> state
+    var state = movieListState ?: MovieListState()
+    when (action) {
+        is displayMovies -> {
+            state = state.copy(movieObjects = action.movieObjects)
         }
     }
+    return state
 }

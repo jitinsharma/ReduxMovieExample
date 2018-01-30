@@ -14,7 +14,7 @@ import io.github.jitinsharma.reduxmovieexample.models.MovieObject
 interface MovieDao {
 
     @Query("SELECT * from movies")
-    fun getAll() : List<MovieObject>
+    fun getAll(): List<MovieObject>
 
     @Insert
     fun insertAll(vararg movieObject: MovieObject)

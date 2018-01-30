@@ -1,7 +1,7 @@
 package io.github.jitinsharma.reduxmovieexample.storage
 
 import io.github.jitinsharma.reduxmovieexample.MovieApplication
-import io.github.jitinsharma.reduxmovieexample.asyncCoroutinesExecutor
+import io.github.jitinsharma.reduxmovieexample.helpers.asyncCoroutinesExecutor
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
 
 /**
@@ -10,17 +10,27 @@ import io.github.jitinsharma.reduxmovieexample.models.MovieObject
 
 class MovieDBHelper {
 
-    fun insertMovieAsync(movieObject: MovieObject, listener: () -> Unit) {
-        asyncCoroutinesExecutor(
-                heavyFunction = {MovieApplication.movieDataBase?.movieDao()?.insert(movieObject)},
-                response = {listener.invoke()}
-        )
-    }
+    companion object {
 
-    fun getStoredMovies(listener: (List<MovieObject>?) -> Unit) {
-        asyncCoroutinesExecutor(
-                heavyFunction = { MovieApplication.movieDataBase?.movieDao()?.getAll() },
-                response = { listener.invoke(it) }
-        )
+        fun insertMovieAsync(movieObject: MovieObject, listener: () -> Unit) {
+            asyncCoroutinesExecutor(
+                    heavyFunction = { MovieApplication.movieDataBase?.movieDao()?.insert(movieObject) },
+                    response = { listener.invoke() }
+            )
+        }
+
+        fun getStoredMovies(listener: (List<MovieObject>?) -> Unit) {
+            asyncCoroutinesExecutor(
+                    heavyFunction = { MovieApplication.movieDataBase?.movieDao()?.getAll() },
+                    response = { listener.invoke(it) }
+            )
+        }
+
+        fun deleteMovieAsync(movieObject: MovieObject, listener: () -> Unit) {
+            asyncCoroutinesExecutor(
+                    heavyFunction = { MovieApplication.movieDataBase?.movieDao()?.delete(movieObject) },
+                    response = { listener.invoke() }
+            )
+        }
     }
 }
