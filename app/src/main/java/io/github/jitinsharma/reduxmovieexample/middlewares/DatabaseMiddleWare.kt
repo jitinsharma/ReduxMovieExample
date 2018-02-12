@@ -11,7 +11,7 @@ import tw.geothings.rekotlin.Middleware
  * Created by jsharma on 15/01/18.
  */
 
-internal val databaseMiddleWare: Middleware<AppState> = { dispatch, getState ->
+internal val databaseMiddleWare: Middleware<AppState> = { dispatch, _ ->
     { next ->
         { action ->
             when (action) {
@@ -24,28 +24,43 @@ internal val databaseMiddleWare: Middleware<AppState> = { dispatch, getState ->
                 is checkForFavorites -> {
                     getFavoriteCount(dispatch)
                 }
+                is loadFavoriteMovies -> {
+                    getFavoriteMovies(dispatch)
+                }
             }
             next(action)
         }
     }
 }
 
-fun insertMovieAsync(movieObject: MovieObject, dispatch: DispatchFunction) {
+private fun insertMovieAsync(movieObject: MovieObject, dispatch: DispatchFunction) {
     MovieDBHelper.insertMovieAsync(movieObject) {
         dispatch.invoke(increment())
     }
 }
 
-fun deleteMovieAsync(movieObject: MovieObject, dispatch: DispatchFunction) {
+private fun deleteMovieAsync(movieObject: MovieObject, dispatch: DispatchFunction) {
     MovieDBHelper.deleteMovieAsync(movieObject) {
         dispatch.invoke(decrement())
     }
 }
 
-fun getFavoriteCount(dispatch: DispatchFunction) {
+private fun getFavoriteCount(dispatch: DispatchFunction) {
     MovieDBHelper.getStoredMovies { list ->
         list?.apply {
             dispatch.invoke(setInitialCount(size))
+        }
+    }
+}
+
+private fun getFavoriteMovies(dispatch: DispatchFunction) {
+    MovieDBHelper.getStoredMovies { list ->
+        list?.apply {
+            if (isEmpty()) {
+                dispatch(displayNoFavoriteMessage())
+            } else {
+                dispatch(displayFavoriteMovies(this))
+            }
         }
     }
 }

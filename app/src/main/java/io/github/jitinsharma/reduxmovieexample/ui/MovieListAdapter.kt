@@ -10,9 +10,7 @@ import android.widget.TextView
 import io.github.jitinsharma.reduxmovieexample.R
 import io.github.jitinsharma.reduxmovieexample.actions.addMovieToFavorites
 import io.github.jitinsharma.reduxmovieexample.actions.removeMovieFromFavorites
-import io.github.jitinsharma.reduxmovieexample.helpers.imageClicked
-import io.github.jitinsharma.reduxmovieexample.helpers.imageUrlPrefix
-import io.github.jitinsharma.reduxmovieexample.helpers.loadImage
+import io.github.jitinsharma.reduxmovieexample.helpers.*
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
 import io.github.jitinsharma.reduxmovieexample.store
 
@@ -20,6 +18,7 @@ import io.github.jitinsharma.reduxmovieexample.store
  * Created by jsharma on 15/01/18.
  */
 class MovieListAdapter(private val movieObjects: List<MovieObject>,
+                       private var fromFavorites: Boolean = false,
                        private val listener: (clickType: String, movieObject: MovieObject) -> Unit) :
         RecyclerView.Adapter<MovieListAdapter.MovieItemHolder>() {
 
@@ -32,16 +31,21 @@ class MovieListAdapter(private val movieObjects: List<MovieObject>,
         holder?.apply {
             movieRating.text = current.voteAverage.toString()
             movieItemImage.loadImage(getImageUrl(current.posterPath.toString()))
-            if (current.isFavorite) {
-                addToFavorites.setImageDrawable(
-                        ContextCompat.getDrawable(addToFavorites.context,
-                                R.drawable.ic_favorite_red_24dp)
-                )
+            if (fromFavorites) {
+                addToFavorites.makeInvisible()
             } else {
-                addToFavorites.setImageDrawable(
-                        ContextCompat.getDrawable(addToFavorites.context,
-                                R.drawable.ic_favorite_border_black_24dp)
-                )
+                addToFavorites.makeVisible()
+                if (current.isFavorite) {
+                    addToFavorites.setImageDrawable(
+                            ContextCompat.getDrawable(addToFavorites.context,
+                                    R.drawable.ic_favorite_red_24dp)
+                    )
+                } else {
+                    addToFavorites.setImageDrawable(
+                            ContextCompat.getDrawable(addToFavorites.context,
+                                    R.drawable.ic_favorite_border_black_24dp)
+                    )
+                }
             }
         }
     }

@@ -27,8 +27,9 @@ class MovieApplication : Application() {
         super.onCreate()
         instance = this
         debugMode { Timber.plant(Timber.DebugTree()) }
-        movieDataBase = Room.databaseBuilder(this, MovieDatabase::class.java,
-                "movieDB").build()
+        movieDataBase = Room
+                .databaseBuilder(this, MovieDatabase::class.java, "movieDB")
+                .build()
     }
 
     companion object {

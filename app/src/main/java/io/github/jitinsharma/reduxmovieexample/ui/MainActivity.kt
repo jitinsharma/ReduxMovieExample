@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), OnTabSelectListener, StoreSubscriber<F
                 showFragment(MovieListFragment())
             }
             R.id.tab_favorite -> {
-                showFragment(MovieListFragment())
+                showFragment(FavoriteListFragment())
             }
         }
     }

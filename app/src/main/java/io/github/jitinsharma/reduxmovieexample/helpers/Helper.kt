@@ -1,11 +1,12 @@
 package io.github.jitinsharma.reduxmovieexample.helpers
 
-import android.annotation.SuppressLint
+import android.Manifest
 import android.content.Context
 import android.net.ConnectivityManager
-import android.support.v4.app.Fragment
+import android.support.annotation.RequiresPermission
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import io.github.jitinsharma.reduxmovieexample.BuildConfig
@@ -41,14 +42,14 @@ fun <T> asyncCoroutinesExecutor(heavyFunction: () -> T, response: (response: T?)
     }
 }
 
-@SuppressLint("MissingPermission")
+@RequiresPermission(value = Manifest.permission.ACCESS_NETWORK_STATE)
 fun Context.isNetworkStatusAvailable(): Boolean {
     val connectivityManager = this
             .getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
     connectivityManager?.let {
         val netInfo = it.activeNetworkInfo
         netInfo?.let {
-            if (netInfo.isConnected) return true
+            if (it.isConnected) return true
         }
     }
     return false
@@ -60,16 +61,20 @@ inline fun Context.withConnection(block: () -> Unit) {
     }
 }
 
-inline fun Fragment.withConnection(block: () -> Unit) {
-    this.context?.apply {
-        if (isNetworkStatusAvailable()) {
-            block()
-        }
-    }
-}
-
 inline fun AppCompatActivity.transact(action: FragmentTransaction.() -> Unit) {
     supportFragmentManager.beginTransaction().apply {
         action()
     }.commit()
 }
+
+fun View.isVisibile(): Boolean = this.visibility == View.VISIBLE
+
+fun View.isGone(): Boolean = this.visibility == View.GONE
+
+fun View.isInvisible(): Boolean = this.visibility == View.INVISIBLE
+
+fun View.makeVisible() { this.visibility = View.VISIBLE }
+
+fun View.makeGone() { this.visibility = View.GONE }
+
+fun View.makeInvisible() { this.visibility = View.INVISIBLE }

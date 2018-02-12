@@ -26,14 +26,16 @@ internal val movieMiddleWare: Middleware<AppState> = { dispatch, getState ->
 }
 
 private fun updateMoviesWithFavorites(movieObjects: List<MovieObject>, dispatch: DispatchFunction) {
+    var favoriteMap: Map<Int, Long?> = mapOf()
     MovieDBHelper.getStoredMovies { list ->
         list?.let {
-            movieObjects.forEach {
-                if (list.contains(it)) {
-                    it.isFavorite = true
-                }
-            }
-            dispatch(displayMovies(movieObjects))
+            favoriteMap = it.mapIndexed { index, movieObject -> index to movieObject.id }.toMap()
         }
+        movieObjects.forEach {
+            if (favoriteMap.containsValue(it.id)) {
+                it.isFavorite = true
+            }
+        }
+        dispatch(displayMovies(movieObjects))
     }
 }

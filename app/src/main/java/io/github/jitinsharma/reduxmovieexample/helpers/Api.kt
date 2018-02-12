@@ -1,4 +1,4 @@
-package io.github.jitinsharma.reduxmovieexample
+package io.github.jitinsharma.reduxmovieexample.helpers
 
 /**
  * Created by jsharma on 18/01/18.

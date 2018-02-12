@@ -19,7 +19,7 @@ import tw.geothings.rekotlin.StoreSubscriber
  * A simple [Fragment] subclass.
  */
 class MovieListFragment : Fragment(), StoreSubscriber<MovieListState?> {
-    lateinit var movieListAdapter: MovieListAdapter
+    private lateinit var movieListAdapter: MovieListAdapter
 
     override fun newState(state: MovieListState?) {
         state?.movieObjects?.let {
