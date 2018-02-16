@@ -1,8 +1,8 @@
 package io.github.jitinsharma.reduxmovieexample.reducers
 
-import io.github.jitinsharma.reduxmovieexample.actions.decrement
-import io.github.jitinsharma.reduxmovieexample.actions.increment
-import io.github.jitinsharma.reduxmovieexample.actions.setInitialCount
+import io.github.jitinsharma.reduxmovieexample.actions.Decrement
+import io.github.jitinsharma.reduxmovieexample.actions.Increment
+import io.github.jitinsharma.reduxmovieexample.actions.SetInitialCount
 import io.github.jitinsharma.reduxmovieexample.states.FavoriteCounterState
 import tw.geothings.rekotlin.Action
 
@@ -14,13 +14,13 @@ fun favoriteCounterReducer(action: Action, favoriteCounterState: FavoriteCounter
         : FavoriteCounterState {
     var state = favoriteCounterState ?: FavoriteCounterState()
     when (action) {
-        is setInitialCount -> {
+        is SetInitialCount -> {
             state = state.copy(favoriteCount = action.count)
         }
-        is increment -> {
+        is Increment -> {
             state = state.copy(favoriteCount = state.favoriteCount + 1)
         }
-        is decrement -> {
+        is Decrement -> {
             state = state.copy(favoriteCount = state.favoriteCount - 1)
         }
     }

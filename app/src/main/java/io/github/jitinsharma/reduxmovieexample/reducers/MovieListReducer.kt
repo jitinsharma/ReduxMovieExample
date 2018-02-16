@@ -1,6 +1,6 @@
 package io.github.jitinsharma.reduxmovieexample.reducers
 
-import io.github.jitinsharma.reduxmovieexample.actions.displayMovies
+import io.github.jitinsharma.reduxmovieexample.actions.DisplayMovies
 import io.github.jitinsharma.reduxmovieexample.states.MovieListState
 import tw.geothings.rekotlin.Action
 
@@ -11,7 +11,7 @@ import tw.geothings.rekotlin.Action
 fun movieListReducer(action: Action, movieListState: MovieListState?): MovieListState {
     var state = movieListState ?: MovieListState()
     when (action) {
-        is displayMovies -> {
+        is DisplayMovies -> {
             state = state.copy(movieObjects = action.movieObjects)
         }
     }

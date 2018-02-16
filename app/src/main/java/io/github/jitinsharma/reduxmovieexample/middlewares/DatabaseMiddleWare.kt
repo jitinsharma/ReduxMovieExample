@@ -15,16 +15,16 @@ internal val databaseMiddleWare: Middleware<AppState> = { dispatch, _ ->
     { next ->
         { action ->
             when (action) {
-                is addMovieToFavorites -> {
+                is AddMovieToFavorites -> {
                     insertMovieAsync(action.movieObject, dispatch)
                 }
-                is removeMovieFromFavorites -> {
+                is RemoveMovieFromFavorites -> {
                     deleteMovieAsync(action.movieObject, dispatch)
                 }
-                is checkForFavorites -> {
+                is CheckForFavorites -> {
                     getFavoriteCount(dispatch)
                 }
-                is loadFavoriteMovies -> {
+                is LoadFavoriteMovies -> {
                     getFavoriteMovies(dispatch)
                 }
             }
@@ -35,20 +35,20 @@ internal val databaseMiddleWare: Middleware<AppState> = { dispatch, _ ->
 
 private fun insertMovieAsync(movieObject: MovieObject, dispatch: DispatchFunction) {
     MovieDBHelper.insertMovieAsync(movieObject) {
-        dispatch.invoke(increment())
+        dispatch.invoke(Increment())
     }
 }
 
 private fun deleteMovieAsync(movieObject: MovieObject, dispatch: DispatchFunction) {
     MovieDBHelper.deleteMovieAsync(movieObject) {
-        dispatch.invoke(decrement())
+        dispatch.invoke(Decrement())
     }
 }
 
 private fun getFavoriteCount(dispatch: DispatchFunction) {
     MovieDBHelper.getStoredMovies { list ->
         list?.apply {
-            dispatch.invoke(setInitialCount(size))
+            dispatch.invoke(SetInitialCount(size))
         }
     }
 }
@@ -57,9 +57,9 @@ private fun getFavoriteMovies(dispatch: DispatchFunction) {
     MovieDBHelper.getStoredMovies { list ->
         list?.apply {
             if (isEmpty()) {
-                dispatch(displayNoFavoriteMessage())
+                dispatch(DisplayNoFavoriteMessage())
             } else {
-                dispatch(displayFavoriteMovies(this))
+                dispatch(DisplayFavoriteMovies(this))
             }
         }
     }

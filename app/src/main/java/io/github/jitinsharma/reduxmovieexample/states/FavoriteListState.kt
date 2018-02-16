@@ -10,4 +10,4 @@ import tw.geothings.rekotlin.StateType
 data class FavoriteListState(
         val displayNoFavoriteMessage: Boolean = false,
         val favorites: List<MovieObject>? = null
-): StateType
+) : StateType

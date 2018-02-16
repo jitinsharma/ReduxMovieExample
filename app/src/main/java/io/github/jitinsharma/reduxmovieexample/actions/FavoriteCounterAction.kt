@@ -6,10 +6,10 @@ import tw.geothings.rekotlin.Action
  * Created by jsharma on 30/01/18.
  */
 
-data class checkForFavorites(val unit: Unit? = null) : Action
+class CheckForFavorites : Action
 
-data class setInitialCount(val count: Int) : Action
+class SetInitialCount(val count: Int) : Action
 
-data class increment(val unit: Unit? = null) : Action
+class Increment : Action
 
-data class decrement(val unit: Unit? = null) : Action
+class Decrement : Action

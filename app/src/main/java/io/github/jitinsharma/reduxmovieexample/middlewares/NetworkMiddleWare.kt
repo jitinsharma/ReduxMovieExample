@@ -1,7 +1,7 @@
 package io.github.jitinsharma.reduxmovieexample.middlewares
 
-import io.github.jitinsharma.reduxmovieexample.actions.initializeMovieList
-import io.github.jitinsharma.reduxmovieexample.actions.loadTopRatedMovies
+import io.github.jitinsharma.reduxmovieexample.actions.InitializeMovieList
+import io.github.jitinsharma.reduxmovieexample.actions.LoadTopRatedMovies
 import io.github.jitinsharma.reduxmovieexample.helpers.API_KEY
 import io.github.jitinsharma.reduxmovieexample.models.MovieResponse
 import io.github.jitinsharma.reduxmovieexample.network.ApiClient
@@ -22,7 +22,7 @@ internal val networkMiddleWare: Middleware<AppState> = { dispatch, getState ->
     { next ->
         { action ->
             when (action) {
-                is loadTopRatedMovies -> {
+                is LoadTopRatedMovies -> {
                     callTopRatedMovies(dispatchFunction = dispatch)
                 }
             }
@@ -43,7 +43,7 @@ private fun callTopRatedMovies(dispatchFunction: DispatchFunction) {
         override fun onResponse(call: Call<MovieResponse>?, response: Response<MovieResponse>?) {
             val movieObjects = response?.body()?.results
             movieObjects?.let {
-                dispatchFunction(initializeMovieList(it))
+                dispatchFunction(InitializeMovieList(it))
             }
         }
     })

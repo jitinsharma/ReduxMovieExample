@@ -7,8 +7,8 @@ import tw.geothings.rekotlin.Action
  * Created by jsharma on 11/02/18.
  */
 
-data class loadFavoriteMovies(val unit: Unit? = null): Action
+class LoadFavoriteMovies : Action
 
-data class displayFavoriteMovies(val favorites: List<MovieObject>): Action
+class DisplayFavoriteMovies(val favorites: List<MovieObject>) : Action
 
-data class displayNoFavoriteMessage(val unit: Unit? = null): Action
+class DisplayNoFavoriteMessage : Action

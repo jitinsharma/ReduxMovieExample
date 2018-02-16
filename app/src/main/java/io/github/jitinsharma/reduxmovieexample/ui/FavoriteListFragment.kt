@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.jitinsharma.reduxmovieexample.R
-import io.github.jitinsharma.reduxmovieexample.actions.loadFavoriteMovies
+import io.github.jitinsharma.reduxmovieexample.actions.LoadFavoriteMovies
 import io.github.jitinsharma.reduxmovieexample.helpers.makeGone
 import io.github.jitinsharma.reduxmovieexample.helpers.makeVisible
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
@@ -42,7 +42,7 @@ class FavoriteListFragment : Fragment(), StoreSubscriber<FavoriteListState?> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        store.dispatch(loadFavoriteMovies())
+        store.dispatch(LoadFavoriteMovies())
     }
 
     override fun onStart() {

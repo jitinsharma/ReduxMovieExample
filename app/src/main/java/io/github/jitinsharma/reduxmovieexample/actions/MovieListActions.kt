@@ -7,12 +7,12 @@ import tw.geothings.rekotlin.Action
  * Created by jsharma on 15/01/18.
  */
 
-data class initializeMovieList(val movieObjects: List<MovieObject>) : Action
+class InitializeMovieList(val movieObjects: List<MovieObject>) : Action
 
-data class displayMovies(val movieObjects: List<MovieObject>) : Action
+class DisplayMovies(val movieObjects: List<MovieObject>) : Action
 
-data class loadTopRatedMovies(val unit: Unit? = null) : Action
+class LoadTopRatedMovies : Action
 
-data class addMovieToFavorites(val movieObject: MovieObject) : Action
+class AddMovieToFavorites(val movieObject: MovieObject) : Action
 
-data class removeMovieFromFavorites(val movieObject: MovieObject) : Action
+class RemoveMovieFromFavorites(val movieObject: MovieObject) : Action

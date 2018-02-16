@@ -1,7 +1,7 @@
 package io.github.jitinsharma.reduxmovieexample.middlewares
 
-import io.github.jitinsharma.reduxmovieexample.actions.displayMovies
-import io.github.jitinsharma.reduxmovieexample.actions.initializeMovieList
+import io.github.jitinsharma.reduxmovieexample.actions.DisplayMovies
+import io.github.jitinsharma.reduxmovieexample.actions.InitializeMovieList
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
 import io.github.jitinsharma.reduxmovieexample.states.AppState
 import io.github.jitinsharma.reduxmovieexample.storage.MovieDBHelper
@@ -16,7 +16,7 @@ internal val movieMiddleWare: Middleware<AppState> = { dispatch, getState ->
     { next ->
         { action ->
             when (action) {
-                is initializeMovieList -> {
+                is InitializeMovieList -> {
                     updateMoviesWithFavorites(action.movieObjects, dispatch)
                 }
             }
@@ -36,6 +36,6 @@ private fun updateMoviesWithFavorites(movieObjects: List<MovieObject>, dispatch:
                 it.isFavorite = true
             }
         }
-        dispatch(displayMovies(movieObjects))
+        dispatch(DisplayMovies(movieObjects))
     }
 }

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.jitinsharma.reduxmovieexample.R
-import io.github.jitinsharma.reduxmovieexample.actions.loadTopRatedMovies
+import io.github.jitinsharma.reduxmovieexample.actions.LoadTopRatedMovies
 import io.github.jitinsharma.reduxmovieexample.helpers.favoritesClicked
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
 import io.github.jitinsharma.reduxmovieexample.states.MovieListState
@@ -33,7 +33,7 @@ class MovieListFragment : Fragment(), StoreSubscriber<MovieListState?> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        store.dispatch(loadTopRatedMovies())
+        store.dispatch(LoadTopRatedMovies())
     }
 
     private fun initializeAdapter(movieObjects: List<MovieObject>) {

@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import io.github.jitinsharma.reduxmovieexample.R
-import io.github.jitinsharma.reduxmovieexample.actions.addMovieToFavorites
-import io.github.jitinsharma.reduxmovieexample.actions.removeMovieFromFavorites
+import io.github.jitinsharma.reduxmovieexample.actions.AddMovieToFavorites
+import io.github.jitinsharma.reduxmovieexample.actions.RemoveMovieFromFavorites
 import io.github.jitinsharma.reduxmovieexample.helpers.*
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
 import io.github.jitinsharma.reduxmovieexample.store
@@ -80,10 +80,10 @@ class MovieListAdapter(private val movieObjects: List<MovieObject>,
         private fun MovieObject.handleFavoriteClick() {
             if (!isFavorite) {
                 isFavorite = true
-                store.dispatch(addMovieToFavorites(this))
+                store.dispatch(AddMovieToFavorites(this))
             } else {
                 isFavorite = false
-                store.dispatch(removeMovieFromFavorites(this))
+                store.dispatch(RemoveMovieFromFavorites(this))
             }
         }
     }

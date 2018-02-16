@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import com.roughike.bottombar.BottomBarTab
 import com.roughike.bottombar.OnTabSelectListener
 import io.github.jitinsharma.reduxmovieexample.R
-import io.github.jitinsharma.reduxmovieexample.actions.checkForFavorites
+import io.github.jitinsharma.reduxmovieexample.actions.CheckForFavorites
 import io.github.jitinsharma.reduxmovieexample.helpers.transact
 import io.github.jitinsharma.reduxmovieexample.states.FavoriteCounterState
 import io.github.jitinsharma.reduxmovieexample.store
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), OnTabSelectListener, StoreSubscriber<F
         bottomBar.setOnTabSelectListener(this)
         nearby = bottomBar.getTabWithId(R.id.tab_favorite)
         showFragment(MovieListFragment())
-        store.dispatch(checkForFavorites())
+        store.dispatch(CheckForFavorites())
     }
 
     override fun onStart() {

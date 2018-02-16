@@ -1,7 +1,7 @@
 package io.github.jitinsharma.reduxmovieexample.reducers
 
-import io.github.jitinsharma.reduxmovieexample.actions.displayFavoriteMovies
-import io.github.jitinsharma.reduxmovieexample.actions.displayNoFavoriteMessage
+import io.github.jitinsharma.reduxmovieexample.actions.DisplayFavoriteMovies
+import io.github.jitinsharma.reduxmovieexample.actions.DisplayNoFavoriteMessage
 import io.github.jitinsharma.reduxmovieexample.states.FavoriteListState
 import tw.geothings.rekotlin.Action
 
@@ -12,10 +12,10 @@ import tw.geothings.rekotlin.Action
 fun favoriteListReducer(action: Action, favoriteListState: FavoriteListState?): FavoriteListState {
     var state = favoriteListState ?: FavoriteListState()
     when (action) {
-        is displayFavoriteMovies -> {
+        is DisplayFavoriteMovies -> {
             state = state.copy(favorites = action.favorites, displayNoFavoriteMessage = false)
         }
-        is displayNoFavoriteMessage -> {
+        is DisplayNoFavoriteMessage -> {
             state = state.copy(favorites = null, displayNoFavoriteMessage = true)
         }
     }
