@@ -16,12 +16,12 @@ import tw.geothings.rekotlin.StoreSubscriber
 
 @SuppressLint("PrivateResource")
 class MainActivity : AppCompatActivity(), OnTabSelectListener, StoreSubscriber<FavoriteCounterState?> {
-    private lateinit var nearby: BottomBarTab
+    private lateinit var favoriteTab: BottomBarTab
 
     override fun newState(state: FavoriteCounterState?) {
         state?.apply {
             if (favoriteCount != 0) {
-                nearby.setBadgeCount(favoriteCount)
+                favoriteTab.setBadgeCount(favoriteCount)
             }
         }
     }
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), OnTabSelectListener, StoreSubscriber<F
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomBar.setOnTabSelectListener(this)
-        nearby = bottomBar.getTabWithId(R.id.tab_favorite)
+        favoriteTab = bottomBar.getTabWithId(R.id.tab_favorite)
         showFragment(MovieListFragment())
         store.dispatch(CheckForFavorites())
     }

@@ -23,7 +23,7 @@ internal val networkMiddleWare: Middleware<AppState> = { dispatch, getState ->
         { action ->
             when (action) {
                 is LoadTopRatedMovies -> {
-                    callTopRatedMovies(dispatchFunction = dispatch)
+                    callTopRatedMovies(dispatch)
                 }
             }
             next(action)
@@ -31,7 +31,7 @@ internal val networkMiddleWare: Middleware<AppState> = { dispatch, getState ->
     }
 }
 
-private fun callTopRatedMovies(dispatchFunction: DispatchFunction) {
+private fun callTopRatedMovies(dispatch: DispatchFunction) {
     val apiService = ApiClient.client?.create(ApiInterface::class.java)
     val call = apiService?.discoverMovies(API_KEY)
 
@@ -43,7 +43,7 @@ private fun callTopRatedMovies(dispatchFunction: DispatchFunction) {
         override fun onResponse(call: Call<MovieResponse>?, response: Response<MovieResponse>?) {
             val movieObjects = response?.body()?.results
             movieObjects?.let {
-                dispatchFunction(InitializeMovieList(it))
+                dispatch(InitializeMovieList(it))
             }
         }
     })
