@@ -3,7 +3,7 @@
 A sample application implementing redux to display list of movies from
 an API and allow storing of favorite movies.
 
- ![](./docs/movie.gif)
+![](./docs/movie.gif)
 
 # Basics
 
@@ -144,6 +144,23 @@ override method to get new states.
 ```kotlin
 class MainActivity : AppCompatActivity(), StoreSubscriber<FavoriteCounterState?> {
 
+    // Subscribe specific state from store
+    override fun onStart() {
+        super.onStart()
+        store.subscribe(this) {
+            it.select {
+                it.favoriteCounterState
+            }
+        }
+    }
+
+    // Unsubscribe from store
+    override fun onStop() {
+        super.onStop()
+        store.unsubscribe(this)
+    }
+
+    // Receive new state whenever it is modified.
     override fun newState(state: FavoriteCounterState?) {
         state?.apply {
             if (favoriteCount != 0) {
@@ -154,4 +171,7 @@ class MainActivity : AppCompatActivity(), StoreSubscriber<FavoriteCounterState?>
 ```
 
 # Running Project
-Import in Android Studio and Run.
+- Import in Android Studio.
+- Get API key from [here](https://developers.themoviedb.org/3/getting-started/introduction)
+and update in Api.kt
+- Run the project
