@@ -1,7 +1,7 @@
 # Redux Movie Application
 
 A sample application implementing redux to display list of movies from
-an API and allow storing of favorite movies.
+an API and allow storing of favorite movies. Built with [ReKotlin](https://github.com/ReKotlin/ReKotlin)
 
 ![](./docs/movie.gif)
 
