@@ -10,7 +10,10 @@ import android.widget.TextView
 import io.github.jitinsharma.reduxmovieexample.R
 import io.github.jitinsharma.reduxmovieexample.actions.AddMovieToFavorites
 import io.github.jitinsharma.reduxmovieexample.actions.RemoveMovieFromFavorites
-import io.github.jitinsharma.reduxmovieexample.helpers.*
+import io.github.jitinsharma.reduxmovieexample.helpers.imageUrlPrefix
+import io.github.jitinsharma.reduxmovieexample.helpers.loadImage
+import io.github.jitinsharma.reduxmovieexample.helpers.makeInvisible
+import io.github.jitinsharma.reduxmovieexample.helpers.makeVisible
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
 import io.github.jitinsharma.reduxmovieexample.store
 
@@ -18,8 +21,7 @@ import io.github.jitinsharma.reduxmovieexample.store
  * Created by jsharma on 15/01/18.
  */
 class MovieListAdapter(private val movieObjects: List<MovieObject>,
-                       private var fromFavorites: Boolean = false,
-                       private val listener: (clickType: String, movieObject: MovieObject) -> Unit) :
+                       private var fromFavorites: Boolean = false) :
         RecyclerView.Adapter<MovieListAdapter.MovieItemHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MovieItemHolder =
@@ -70,9 +72,6 @@ class MovieListAdapter(private val movieObjects: List<MovieObject>,
                         handleFavoriteClick()
                         onBindViewHolder(this@MovieItemHolder, adapterPosition)
                     }
-                }
-                movieItemImage.setOnClickListener {
-                    listener.invoke(imageClicked, movieObjects[adapterPosition])
                 }
             }
         }

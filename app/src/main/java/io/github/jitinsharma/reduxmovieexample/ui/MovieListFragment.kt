@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.jitinsharma.reduxmovieexample.R
 import io.github.jitinsharma.reduxmovieexample.actions.LoadTopRatedMovies
-import io.github.jitinsharma.reduxmovieexample.helpers.favoritesClicked
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
 import io.github.jitinsharma.reduxmovieexample.states.MovieListState
 import io.github.jitinsharma.reduxmovieexample.store
@@ -37,13 +36,7 @@ class MovieListFragment : Fragment(), StoreSubscriber<MovieListState?> {
     }
 
     private fun initializeAdapter(movieObjects: List<MovieObject>) {
-        movieListAdapter = MovieListAdapter(movieObjects) { clickType, movieObject ->
-            when (clickType) {
-                favoritesClicked -> {
-
-                }
-            }
-        }
+        movieListAdapter = MovieListAdapter(movieObjects)
         movieList.layoutManager = GridLayoutManager(context, 2)
         movieList.adapter = movieListAdapter
     }
