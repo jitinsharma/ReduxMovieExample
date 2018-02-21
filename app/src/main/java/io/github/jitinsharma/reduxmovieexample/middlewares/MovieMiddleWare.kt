@@ -12,7 +12,7 @@ import tw.geothings.rekotlin.Middleware
  * Created by jsharma on 30/01/18.
  */
 
-internal val movieMiddleWare: Middleware<AppState> = { dispatch, getState ->
+internal val movieMiddleWare: Middleware<AppState> = { dispatch, _ ->
     { next ->
         { action ->
             when (action) {

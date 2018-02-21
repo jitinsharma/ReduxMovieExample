@@ -60,7 +60,7 @@ class FavoriteListFragment : Fragment(), StoreSubscriber<FavoriteListState?> {
     }
 
     private fun initializeAdapter(movieObjects: List<MovieObject>) {
-        movieListAdapter = MovieListAdapter(movieObjects, true) { _, _ -> }
+        movieListAdapter = MovieListAdapter(movieObjects, true)
         favoriteList.layoutManager = GridLayoutManager(context, 2)
         favoriteList.adapter = movieListAdapter
     }

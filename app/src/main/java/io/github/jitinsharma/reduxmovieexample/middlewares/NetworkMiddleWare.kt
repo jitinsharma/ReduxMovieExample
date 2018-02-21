@@ -18,7 +18,7 @@ import tw.geothings.rekotlin.Middleware
  * Created by jsharma on 18/01/18.
  */
 
-internal val networkMiddleWare: Middleware<AppState> = { dispatch, getState ->
+internal val networkMiddleWare: Middleware<AppState> = { dispatch, _ ->
     { next ->
         { action ->
             when (action) {
