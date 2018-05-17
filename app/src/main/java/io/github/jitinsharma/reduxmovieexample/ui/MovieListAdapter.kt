@@ -15,12 +15,13 @@ import io.github.jitinsharma.reduxmovieexample.helpers.loadImage
 import io.github.jitinsharma.reduxmovieexample.helpers.makeInvisible
 import io.github.jitinsharma.reduxmovieexample.helpers.makeVisible
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
-import io.github.jitinsharma.reduxmovieexample.store
+import io.github.jitinsharma.reduxmovieexample.states.AppStore
 
 /**
  * Created by jsharma on 15/01/18.
  */
-class MovieListAdapter(private val movieObjects: List<MovieObject>,
+class MovieListAdapter(private val store: AppStore,
+                       private val movieObjects: List<MovieObject>,
                        private var fromFavorites: Boolean = false) :
         RecyclerView.Adapter<MovieListAdapter.MovieItemHolder>() {
 

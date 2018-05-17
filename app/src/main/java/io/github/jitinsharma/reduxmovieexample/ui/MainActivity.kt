@@ -3,19 +3,24 @@ package io.github.jitinsharma.reduxmovieexample.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import com.roughike.bottombar.BottomBarTab
 import com.roughike.bottombar.OnTabSelectListener
+import dagger.android.support.DaggerAppCompatActivity
 import io.github.jitinsharma.reduxmovieexample.R
 import io.github.jitinsharma.reduxmovieexample.actions.CheckForFavorites
 import io.github.jitinsharma.reduxmovieexample.helpers.transact
+import io.github.jitinsharma.reduxmovieexample.states.AppStore
 import io.github.jitinsharma.reduxmovieexample.states.FavoriteCounterState
-import io.github.jitinsharma.reduxmovieexample.store
 import kotlinx.android.synthetic.main.activity_main.*
 import tw.geothings.rekotlin.StoreSubscriber
+import javax.inject.Inject
 
 @SuppressLint("PrivateResource")
-class MainActivity : AppCompatActivity(), OnTabSelectListener, StoreSubscriber<FavoriteCounterState?> {
+class MainActivity : DaggerAppCompatActivity(), OnTabSelectListener, StoreSubscriber<FavoriteCounterState?> {
+
+    @Inject
+    lateinit var store: AppStore
+
     private lateinit var favoriteTab: BottomBarTab
 
     override fun newState(state: FavoriteCounterState?) {
