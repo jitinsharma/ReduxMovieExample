@@ -6,20 +6,26 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.android.support.DaggerFragment
 import io.github.jitinsharma.reduxmovieexample.R
 import io.github.jitinsharma.reduxmovieexample.actions.LoadFavoriteMovies
 import io.github.jitinsharma.reduxmovieexample.helpers.makeGone
 import io.github.jitinsharma.reduxmovieexample.helpers.makeVisible
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
+import io.github.jitinsharma.reduxmovieexample.states.AppStore
 import io.github.jitinsharma.reduxmovieexample.states.FavoriteListState
-import io.github.jitinsharma.reduxmovieexample.store
 import kotlinx.android.synthetic.main.fragment_favorite_list.*
 import tw.geothings.rekotlin.StoreSubscriber
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  */
-class FavoriteListFragment : Fragment(), StoreSubscriber<FavoriteListState?> {
+class FavoriteListFragment : DaggerFragment(), StoreSubscriber<FavoriteListState?> {
+
+    @Inject
+    lateinit var store: AppStore
+
     private lateinit var movieListAdapter: MovieListAdapter
 
     override fun newState(state: FavoriteListState?) {
@@ -60,7 +66,7 @@ class FavoriteListFragment : Fragment(), StoreSubscriber<FavoriteListState?> {
     }
 
     private fun initializeAdapter(movieObjects: List<MovieObject>) {
-        movieListAdapter = MovieListAdapter(movieObjects, true)
+        movieListAdapter = MovieListAdapter(store, movieObjects, true)
         favoriteList.layoutManager = GridLayoutManager(context, 2)
         favoriteList.adapter = movieListAdapter
     }

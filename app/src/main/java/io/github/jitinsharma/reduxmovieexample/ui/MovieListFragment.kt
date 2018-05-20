@@ -6,18 +6,24 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.android.support.DaggerFragment
 import io.github.jitinsharma.reduxmovieexample.R
 import io.github.jitinsharma.reduxmovieexample.actions.LoadTopRatedMovies
 import io.github.jitinsharma.reduxmovieexample.models.MovieObject
+import io.github.jitinsharma.reduxmovieexample.states.AppStore
 import io.github.jitinsharma.reduxmovieexample.states.MovieListState
-import io.github.jitinsharma.reduxmovieexample.store
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 import tw.geothings.rekotlin.StoreSubscriber
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  */
-class MovieListFragment : Fragment(), StoreSubscriber<MovieListState?> {
+class MovieListFragment : DaggerFragment(), StoreSubscriber<MovieListState?> {
+
+    @Inject
+    lateinit var store: AppStore
+
     private lateinit var movieListAdapter: MovieListAdapter
 
     override fun newState(state: MovieListState?) {
@@ -36,7 +42,7 @@ class MovieListFragment : Fragment(), StoreSubscriber<MovieListState?> {
     }
 
     private fun initializeAdapter(movieObjects: List<MovieObject>) {
-        movieListAdapter = MovieListAdapter(movieObjects)
+        movieListAdapter = MovieListAdapter(store, movieObjects)
         movieList.layoutManager = GridLayoutManager(context, 2)
         movieList.adapter = movieListAdapter
     }
